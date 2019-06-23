@@ -1,7 +1,10 @@
 package com.bckho.sierendeelementen.api;
 
+import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
+import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.bckho.sierendeelementen.models.Element;
 
@@ -36,8 +39,8 @@ public class ElementAPIConnector extends AsyncTask<Void, Void, String> {
 
     private ElementTaskListener listener;
 
-    public ElementAPIConnector() {
 
+    public ElementAPIConnector() {
     }
 
     public void setOnElementAvailableListener(ElementTaskListener listener) {
@@ -62,6 +65,7 @@ public class ElementAPIConnector extends AsyncTask<Void, Void, String> {
             // check response code
             if (httpURLConnection.getResponseCode() == HttpURLConnection.HTTP_OK) {
                 // Received status 200: OK
+                Log.d(TAG, "doInBackground: status_" + httpURLConnection.getResponseCode());
 
                 InputStream in = httpURLConnection.getInputStream();
                 Scanner scanner = new Scanner(in);
@@ -126,19 +130,23 @@ public class ElementAPIConnector extends AsyncTask<Void, Void, String> {
                 double lat = geometry.getDouble("x");
                 double lon = geometry.getDouble("y");
 
+                // New Element of the retrieved JSON
                 Element element = new Element(identification,
                         title,
                         geo,
                         artist,
-                        description,
                         material,
                         underLayer,
+                        description,
                         imageUri,
                         lat,
                         lon);
+
+                // Add the new Element to the ArrayList
                 elementArrayList.add(element);
             }
 
+            // Callback to indicate new ArrayList with Elements has been created
             listener.OnElementInfoAvailable(elementArrayList);
 
         } catch (JSONException e) {
@@ -147,6 +155,7 @@ public class ElementAPIConnector extends AsyncTask<Void, Void, String> {
         }
     }
 
+    // OnElementInfoAvailable() functions as a callback for the MainActivity class
     public interface ElementTaskListener {
 
         void OnElementInfoAvailable(ArrayList<Element> elementArrayList);
