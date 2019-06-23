@@ -1,6 +1,8 @@
 package com.bckho.sierendeelementen.models;
 
-public class Element {
+import java.io.Serializable;
+
+public class Element implements Serializable {
     private String identification;
     private String title;
     private String geographicalLocation;
