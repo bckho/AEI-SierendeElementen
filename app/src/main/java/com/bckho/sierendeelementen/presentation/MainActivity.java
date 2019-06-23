@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.bckho.sierendeelementen.api.ElementAPIConnector;
 import com.bckho.sierendeelementen.models.Element;
@@ -16,8 +17,8 @@ public class MainActivity extends AppCompatActivity implements ElementAPIConnect
 
     private static final String TAG = MainActivity.class.getSimpleName();
 
-    private ArrayList<Element> mElementList;
-    private RecyclerView rvElementRecyclerView;
+    private ArrayList<Element> mElementList = new ArrayList<>();
+    RecyclerView mRvElementRecyclerView;
     private ElementAdapter mElementAdapter;
 
     @Override
@@ -26,13 +27,15 @@ public class MainActivity extends AppCompatActivity implements ElementAPIConnect
         setContentView(R.layout.activity_main);
 
         mElementAdapter = new ElementAdapter(mElementList);
-        rvElementRecyclerView = findViewById(R.id.rv_list_items);
-        rvElementRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        rvElementRecyclerView.setAdapter(mElementAdapter);
+        mRvElementRecyclerView = findViewById(R.id.rv_list_items);
+        mRvElementRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        mRvElementRecyclerView.setAdapter(mElementAdapter);
 
+        // New AsyncTask
         ElementAPIConnector connector = new ElementAPIConnector();
         connector.setOnElementAvailableListener(this);
 
+        // Executes AsyncTask
         connector.execute();
     }
 
@@ -41,10 +44,17 @@ public class MainActivity extends AppCompatActivity implements ElementAPIConnect
         Log.d(TAG, "OnElementInfoAvailable: Called");
         Log.d(TAG, "OnElementInfoAvailable: ListSize_ " + elementArrayList.size());
 
+        // Clears List for a new List
         this.mElementList.clear();
         this.mElementList.addAll(elementArrayList);
 
-        this.mElementAdapter.notifyDataSetChanged();
+        Log.d(TAG, "OnElementInfoAvailable: AddAll_ size:" + this.mElementList.size());
 
+        // Shows how many Elements have been stored in the ArrayList
+        Toast.makeText(this,
+                mElementList.size() + " items geladen",
+                Toast.LENGTH_SHORT).show();
+
+        this.mElementAdapter.notifyDataSetChanged();
     }
 }
