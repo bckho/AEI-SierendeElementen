@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">Sierende Elementen</string>
+
+    <string name="nl_unknownTitle">Geen titel</string>
+    <string name="nl_unknownLocation">Locatie onbekend</string>
+    <string name="nl_unknownArtist">Onbekend</string>
+    <string name="nl_unknownDescription">Geen beschrijving</string>
+    <string name="nl_unknownMaterial">Geen materiaal gevonden</string>
+    <string name="nl_unknownUnderlayer">Geen onderlaag gevonden</string>
+
 </resources>
