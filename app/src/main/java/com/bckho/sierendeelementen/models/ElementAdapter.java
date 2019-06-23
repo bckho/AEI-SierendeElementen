@@ -2,7 +2,6 @@ package com.bckho.sierendeelementen.models;
 
 import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -16,9 +15,7 @@ import com.bckho.sierendeelementen.presentation.DetailActivity;
 import com.bckho.sierendeelementen.presentation.R;
 import com.squareup.picasso.Picasso;
 
-import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.List;
 
 public class ElementAdapter extends RecyclerView.Adapter<ElementAdapter.ElementViewHolder> {
 
@@ -52,11 +49,10 @@ public class ElementAdapter extends RecyclerView.Adapter<ElementAdapter.ElementV
         Element element = this.mElementList.get(position);
 
         // Search all components from R.layout.layout.listitem for pairing data
+        Picasso.get().load(element.getImageUri()).into(holder.image);
         holder.title.setText(element.getTitle());
-        holder.geo.setText(element.getIdentification());
-        holder.identification.setText(element.getGeographicalLocation());
-
-        Picasso.get().load(Uri.parse(element.getImageUri()));
+        holder.geo.setText(element.getGeographicalLocation());
+        holder.identification.setText(element.getIdentification());
     }
 
     @Override
@@ -93,7 +89,7 @@ public class ElementAdapter extends RecyclerView.Adapter<ElementAdapter.ElementV
             Intent intent = new Intent(v.getContext(), DetailActivity.class);
 
             // Put content in intent
-            intent.putExtra(KEY, (Serializable) mElementList.get(getAdapterPosition()));
+            intent.putExtra(KEY, mElementList.get(getAdapterPosition()));
             v.getContext().startActivity(intent);
         }
     }
