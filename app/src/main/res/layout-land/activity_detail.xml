@@ -22,7 +22,8 @@
             android:textColor="@color/title"
             android:textSize="25sp"
             android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/iv_detail_elementImage"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -31,30 +32,27 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="16dp"
             android:layout_marginEnd="8dp"
             android:text="geographic"
             android:textSize="18sp"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/iv_detail_elementImage"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_detail_title" />
 
 
         <ImageView
             android:id="@+id/iv_detail_elementImage"
-            android:contentDescription="Element Image"
-            android:layout_width="375dp"
-            android:layout_height="350dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginEnd="8dp"
+            android:layout_width="303dp"
+            android:layout_height="234dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
             android:adjustViewBounds="true"
+            android:contentDescription="Element Image"
             android:scaleType="centerCrop"
-            android:background="@drawable/back"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.4"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_detail_geo" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/tv_detail_placeholder_artist"
@@ -76,7 +74,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="4dp"
             android:layout_marginEnd="8dp"
-            android:text="De Jongh"
+            android:text="Frank Sinatra"
             android:textColor="@color/text"
             android:textSize="14sp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -90,8 +88,8 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="24dp"
             android:text="Beschrijving:"
-            android:textSize="14sp"
             android:textColor="@color/title"
+            android:textSize="14sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_detail_artist" />
@@ -103,7 +101,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="4dp"
             android:layout_marginEnd="8dp"
-            android:text="Een goede Toel"
+            android:text="Een zeer elegante hoofddeksel"
             android:textColor="@color/text"
             android:textSize="14sp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -117,9 +115,9 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="24dp"
             android:text="materiaal:"
-            android:textStyle="bold"
             android:textColor="@color/title"
             android:textSize="14sp"
+            android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_detail_description" />
 
@@ -144,9 +142,9 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="24dp"
             android:text="Onderlaag:"
-            android:textStyle="bold"
             android:textColor="@color/title"
             android:textSize="14sp"
+            android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_detail_material" />
 
