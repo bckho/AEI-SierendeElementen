@@ -11,7 +11,7 @@ import android.widget.TextView;
 import com.bckho.sierendeelementen.models.Element;
 import com.squareup.picasso.Picasso;
 
-public class DetailActivity extends AppCompatActivity {
+public class DetailActivity extends AppCompatActivity{
 
     private static final String TAG = DetailActivity.class.getSimpleName();
 
@@ -37,17 +37,15 @@ public class DetailActivity extends AppCompatActivity {
         initializeDetailObjects();
 
         Bundle receivedExtras = getIntent.getExtras();
+        Log.d(TAG, "onCreate: Bundle_:" + receivedExtras);
 
         assert receivedExtras != null;
         Element element = (Element) receivedExtras.getSerializable(KEY);
+        Log.d(TAG, "onCreate: Element from Bundle_: " + element);
 
-        mTVTitle.setText(element.getTitle());
-        mTVGeolocation.setText(element.getGeographicalLocation());
-        Picasso.get().load(Uri.parse(element.getImageUri())).into(mIVElementImage);
-        mTVArtist.setText(element.getArtist());
-        mTVDescription.setText(element.getDescription());
-        mTVMaterial.setText(element.getMaterial());
-        mTVUnderlayer.setText(element.getUnderLayer());
+        // Set all components in the DetailActivity
+        setComponents(element);
+
     }
 
     private void initializeDetailObjects() {
@@ -58,5 +56,34 @@ public class DetailActivity extends AppCompatActivity {
         mTVDescription = findViewById(R.id.tv_detail_description);
         mTVMaterial = findViewById(R.id.tv_detail_material);
         mTVUnderlayer = findViewById(R.id.tv_detail_underlayer);
+    }
+
+    private void setComponents(Element element) {
+        Log.d(TAG, "setComponents: " + element);
+        Picasso.get().load(Uri.parse(element.getImageUri())).into(mIVElementImage);
+
+        if (element.getTitle().equals("null") || element.getTitle().equals(""))
+            mTVTitle.setText(R.string.nl_unknownTitle);
+        else mTVTitle.setText(element.getTitle());
+
+        if (element.getGeographicalLocation().equals("null") || element.getGeographicalLocation().equals(""))
+            mTVGeolocation.setText(R.string.nl_unknownLocation);
+        else mTVGeolocation.setText(element.getGeographicalLocation());
+
+        if (element.getArtist().equals("null") || element.getArtist().equals(""))
+            mTVArtist.setText(R.string.nl_unknownArtist);
+        else mTVArtist.setText(element.getArtist());
+
+        if (element.getDescription().equals("null") || element.getDescription().equals(""))
+            mTVDescription.setText(R.string.nl_unknownDescription);
+        else mTVDescription.setText(element.getDescription());
+
+        if (element.getMaterial().equals("null") || element.getMaterial().equals(""))
+            mTVMaterial.setText(R.string.nl_unknownMaterial);
+        else mTVMaterial.setText(element.getMaterial());
+
+        if (element.getUnderLayer().equals("null") || element.getUnderLayer().equals(""))
+            mTVUnderlayer.setText(R.string.nl_unknownUnderlayer);
+        else mTVUnderlayer.setText(element.getUnderLayer());
     }
 }
