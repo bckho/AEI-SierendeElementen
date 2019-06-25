@@ -36,6 +36,46 @@ public class Element implements Serializable {
         this.longitude = longitude;
     }
 
+    public void setIdentification(String identification) {
+        this.identification = identification;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setGeographicalLocation(String geographicalLocation) {
+        this.geographicalLocation = geographicalLocation;
+    }
+
+    public void setArtist(String artist) {
+        this.artist = artist;
+    }
+
+    public void setMaterial(String material) {
+        this.material = material;
+    }
+
+    public void setUnderLayer(String underLayer) {
+        this.underLayer = underLayer;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setImageUri(String imageUri) {
+        this.imageUri = imageUri;
+    }
+
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
+    }
+
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
+    }
+
     public String getIdentification() {
         return identification;
     }
@@ -75,4 +115,6 @@ public class Element implements Serializable {
     public String getImageUri() {
         return imageUri;
     }
+
+
 }
