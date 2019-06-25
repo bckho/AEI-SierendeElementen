@@ -1,5 +1,4 @@
-package com.bckho.sierendeelementen.models;
-
+package com.bckho.sierendeelementen.adapters;
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
@@ -11,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bckho.sierendeelementen.models.Element;
 import com.bckho.sierendeelementen.presentation.DetailActivity;
 import com.bckho.sierendeelementen.presentation.R;
 import com.squareup.picasso.Picasso;
@@ -21,13 +21,16 @@ public class ElementAdapter extends RecyclerView.Adapter<ElementAdapter.ElementV
 
     private static final String TAG = ElementAdapter.class.getSimpleName();
 
+    // Key for serializing Element for the Intent
     private static final String KEY = "Element";
 
+    // ArrayList for all loaded elements
     private ArrayList<Element> mElementList;
 
     public ElementAdapter(ArrayList<Element> mElements) {
         this.mElementList = mElements;
     }
+
 
     @NonNull
     @Override
@@ -35,12 +38,16 @@ public class ElementAdapter extends RecyclerView.Adapter<ElementAdapter.ElementV
 
         Log.d(TAG, "onCreateViewHolder: " + i);
 
+        // Get context from ViewGroup
         Context context = viewGroup.getContext();
+
+        // Set layout inflater from context
         LayoutInflater inflater = LayoutInflater.from(context);
 
         View itemlist = inflater.inflate(R.layout.layout_listitem, viewGroup, false);
         return new ElementViewHolder(itemlist);
     }
+
 
     @Override
     public void onBindViewHolder(@NonNull ElementViewHolder holder, int position) {
@@ -55,6 +62,7 @@ public class ElementAdapter extends RecyclerView.Adapter<ElementAdapter.ElementV
         holder.identification.setText(element.getIdentification());
     }
 
+
     @Override
     public int getItemCount() {
         return this.mElementList.size();
@@ -65,21 +73,26 @@ public class ElementAdapter extends RecyclerView.Adapter<ElementAdapter.ElementV
             extends RecyclerView.ViewHolder
             implements View.OnClickListener {
 
+        // Components for the list
         ImageView image;
         TextView title;
         TextView geo;
         TextView identification;
 
+
         public ElementViewHolder(@NonNull View itemView) {
             super(itemView);
 
+            // Get all components from itemView
             image = itemView.findViewById(R.id.iv_list_icon);
             title = itemView.findViewById(R.id.tv_list_title);
             geo = itemView.findViewById(R.id.tv_list_geo);
             identification = itemView.findViewById(R.id.tv_list_identification);
 
+            // Set onClickListener for the item
             itemView.setOnClickListener(this);
         }
+
 
         @Override
         public void onClick(View v) {

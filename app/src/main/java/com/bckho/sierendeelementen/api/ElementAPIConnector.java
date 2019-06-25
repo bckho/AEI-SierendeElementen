@@ -1,10 +1,7 @@
 package com.bckho.sierendeelementen.api;
 
-import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
-import android.widget.ProgressBar;
-import android.widget.Toast;
 
 import com.bckho.sierendeelementen.models.Element;
 
@@ -53,20 +50,27 @@ public class ElementAPIConnector extends AsyncTask<Void, Void, String> {
         String jsonResponse = null;
 
         try {
+
+            // Create new URL and connect
             URL url = new URL(BASE_URL);
             URLConnection urlConnection = url.openConnection();
 
+            // Set http connection with the url
             HttpURLConnection httpURLConnection = (HttpURLConnection) urlConnection;
+
+            // request: GET & Header: Content-Type - application/json
             httpURLConnection.setRequestMethod("GET");
             httpURLConnection.setRequestProperty("Content-Type", "application/json");
 
             httpURLConnection.connect();
 
-            // check response code
+            // Check response code
             if (httpURLConnection.getResponseCode() == HttpURLConnection.HTTP_OK) {
+
                 // Received status 200: OK
                 Log.d(TAG, "doInBackground: status_" + httpURLConnection.getResponseCode());
 
+                // Scanner for the JSON response
                 InputStream in = httpURLConnection.getInputStream();
                 Scanner scanner = new Scanner(in);
                 scanner.useDelimiter("\\A");
@@ -76,6 +80,7 @@ public class ElementAPIConnector extends AsyncTask<Void, Void, String> {
                     jsonResponse = scanner.next();
                 }
             }
+
         } catch (MalformedURLException e) {
             Log.e(TAG, "Error: " + e.getMessage());
         } catch (IOException e) {
@@ -87,17 +92,20 @@ public class ElementAPIConnector extends AsyncTask<Void, Void, String> {
         return jsonResponse;
     }
 
+
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
         Log.d(TAG, "onPreExecute: ");
     }
 
+
     @Override
     protected void onPostExecute(String response) {
         super.onPostExecute(response);
         Log.d(TAG, "onPostExecute: " + response);
 
+        // new ArrayList to put all elements for the JSON
         ArrayList<Element> elementArrayList = new ArrayList<>();
 
         if (response == null || response.equals("")) {
@@ -107,12 +115,17 @@ public class ElementAPIConnector extends AsyncTask<Void, Void, String> {
 
         //Parsing JSON input to Element object
         try {
+
             JSONObject object = new JSONObject(response);
+
+            //  All element objects are from the array features
             JSONArray results = object.getJSONArray("features");
+
             Log.d(TAG, "onPostExecute: " + results);
 
             for (int i = 0; i < results.length(); i++) {
                 JSONObject jsonElement = results.getJSONObject(i);
+
 
                 // Retrieve all Element info
                 JSONObject attributes = jsonElement.getJSONObject("attributes");
@@ -125,10 +138,12 @@ public class ElementAPIConnector extends AsyncTask<Void, Void, String> {
                 String underLayer = attributes.getString(UNDERLAYER);
                 String imageUri = attributes.getString(IMAGEURL);
 
+
                 // Retrieve geo location lat lon
                 JSONObject geometry = jsonElement.getJSONObject("geometry");
-                double lat = geometry.getDouble("x");
-                double lon = geometry.getDouble("y");
+                double lon = geometry.getDouble("x");
+                double lat = geometry.getDouble("y");
+
 
                 // New Element of the retrieved JSON
                 Element element = new Element(identification,
@@ -142,18 +157,24 @@ public class ElementAPIConnector extends AsyncTask<Void, Void, String> {
                         lat,
                         lon);
 
+
                 // Add the new Element to the ArrayList
                 elementArrayList.add(element);
+
             }
 
             // Callback to indicate new ArrayList with Elements has been created
             listener.OnElementInfoAvailable(elementArrayList);
 
         } catch (JSONException e) {
+
             Log.e(TAG, "onPostExecute: " + e);
+
             e.printStackTrace();
+
         }
     }
+
 
     // OnElementInfoAvailable() functions as a callback for the MainActivity class
     public interface ElementTaskListener {
